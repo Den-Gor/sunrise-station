@@ -73,6 +73,14 @@
     id: soap
 
 - type: entity
+  abstract: true
+  parent: [SolutionFood, SolutionSmall]
+  id: SolutionSoapBase
+  components:
+  - type: Solution
+    id: soap
+
+- type: entity
   parent: BaseSoap
   id: Soap
   description: A cheap bar of soap. Doesn't smell.
