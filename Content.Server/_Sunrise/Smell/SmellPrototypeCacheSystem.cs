@@ -9,9 +9,9 @@ namespace Content.Server._Sunrise.Smell;
 /// when applying condition-based scents (drugs, stimulants, alcohol).
 /// Also holds the reference to the shared smellSystemConfig tuning prototype.
 /// </summary>
-public sealed class SmellPrototypeCacheSystem : EntitySystem
+public sealed partial class SmellPrototypeCacheSystem : EntitySystem
 {
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
 
     [ValidatePrototypeId<SmellSystemConfigPrototype>]
     private const string ConfigId = "SunriseDefault";

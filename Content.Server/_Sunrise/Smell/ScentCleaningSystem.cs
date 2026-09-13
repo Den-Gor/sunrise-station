@@ -16,15 +16,15 @@ namespace Content.Server._Sunrise.Smell;
 /// a right-click "Wash scents" verb on a scent bearer, a DoAfter, and on completion —
 /// clearing the target's temporary scents and temporarily masking their base scent.
 /// </summary>
-public sealed class ScentCleaningSystem : EntitySystem
+public sealed partial class ScentCleaningSystem : EntitySystem
 {
-    [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly SmellPrototypeCacheSystem _cache = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private DoAfterSystem _doAfter = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SmellPrototypeCacheSystem _cache = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private ILocalizationManager _loc = default!;
 
     public override void Initialize()
     {
