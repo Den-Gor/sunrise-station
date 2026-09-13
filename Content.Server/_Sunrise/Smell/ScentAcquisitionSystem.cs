@@ -2,7 +2,6 @@ using Content.Shared._Sunrise.Smell;
 using Content.Shared._Sunrise.Smell.Components;
 using Content.Shared._Sunrise.Smell.Prototypes;
 using Content.Shared.Atmos;
-using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Damage.Systems;
@@ -25,13 +24,13 @@ namespace Content.Server._Sunrise.Smell;
 /// ScentEmitter, finishing off a critical target) and records the acquired scent
 /// into the bearer's ScentComponent via AddTemporaryScent.
 /// </summary>
-public sealed class ScentAcquisitionSystem : EntitySystem
+public sealed partial class ScentAcquisitionSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SmellPrototypeCacheSystem _cache = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
-    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private SmellPrototypeCacheSystem _cache = default!;
+    [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private SharedSolutionContainerSystem _solution = default!;
 
     /// <summary>
     /// Marker reagent of tobacco products; its presence in the smoking solution
@@ -72,7 +71,7 @@ public sealed class ScentAcquisitionSystem : EntitySystem
                 break; // любой слот -> даём запах.
         }
 
-        AddTemporaryScent(args.Equipee, ent.Comp.Scent, ent.Comp.Duration);
+        AddTemporaryScent(args.EquipTarget, ent.Comp.Scent, ent.Comp.Duration);
     }
 
     /// <summary>
@@ -199,9 +198,7 @@ public sealed class ScentAcquisitionSystem : EntitySystem
     /// </summary>
     private bool ContainsNicotine(Entity<ScentEmitterComponent> ent, SmokableComponent smokable)
     {
-        return TryComp<SolutionContainerManagerComponent>(ent, out var solutions)
-            && _solution.TryGetSolution((ent.Owner, solutions), smokable.Solution,
-                out _, out var solution)
+        return _solution.TryGetSolution(ent.Owner, smokable.Solution, out _, out var solution)
             && solution.ContainsReagent(NicotineReagent);
     }
 

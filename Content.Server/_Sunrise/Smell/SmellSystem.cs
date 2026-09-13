@@ -26,18 +26,18 @@ namespace Content.Server._Sunrise.Smell;
 /// temporary scents and readable description output. Scent granting (sources) lives in
 /// ScentAcquisitionSystem; the shared prototype cache is SmellPrototypeCacheSystem.
 /// </summary>
-public sealed class SmellSystem : EntitySystem
+public sealed partial class SmellSystem : EntitySystem
 {
-    [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private readonly ExamineSystemShared _examine = default!;
-    [Dependency] private readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private readonly IPrototypeManager _prototypes = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly SmellPrototypeCacheSystem _cache = default!;
-    [Dependency] private readonly InventorySystem _inventory = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly ILocalizationManager _loc = default!;
+    [Dependency] private ActionBlockerSystem _actionBlocker = default!;
+    [Dependency] private ExamineSystemShared _examine = default!;
+    [Dependency] private SharedInteractionSystem _interaction = default!;
+    [Dependency] private IPrototypeManager _prototypes = default!;
+    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private StatusEffectsSystem _statusEffects = default!;
+    [Dependency] private SmellPrototypeCacheSystem _cache = default!;
+    [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private ILocalizationManager _loc = default!;
 
 
     public override void Initialize()
