@@ -255,25 +255,6 @@ scent-slime-accent-fermented-mass = перебродившей массы
 scent-slime-accent-bubbling-gas = пузырящегося газа
 scent-slime-accent-chemical-reagents = химических реагентов
 
-# Терминатор
-scent-terminator-base-titanium-alloy = титанового сплава
-scent-terminator-base-synthetic-skin = синтетической кожи
-scent-terminator-base-latex-muscles = латексных мышц
-scent-terminator-base-hydraulic-fluid = гидравлической жидкости
-scent-terminator-base-overheated-circuits = перегретых микросхем
-
-scent-terminator-nature-kevlar-fabric = кевларовой ткани
-scent-terminator-nature-cold-steel = холодной стали
-scent-terminator-nature-street-dust = уличной пыли
-scent-terminator-nature-burned-plastic = горелого пластика
-scent-terminator-nature-burnt-insulation = жжёной изоляции
-
-scent-terminator-accent-gunpowder = пороха
-scent-terminator-accent-burnt-flesh = палёной плоти
-scent-terminator-accent-electric-spark = электрической искры
-scent-terminator-accent-diesel-fuel = солярки
-scent-terminator-accent-spent-shells = стреляных гильз
-
 # Вокс
 scent-vox-base-silky-plumage = шелковистого оперения
 scent-vox-base-downy-plumage = пухового оперения

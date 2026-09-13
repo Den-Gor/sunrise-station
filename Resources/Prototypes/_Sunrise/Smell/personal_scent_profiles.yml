@@ -264,28 +264,6 @@
     - scent-slime-accent-chemical-reagents
 
 - type: personalScentProfile
-  id: SunriseTerminator
-  notePools:
-  - notes:
-    - scent-terminator-base-titanium-alloy
-    - scent-terminator-base-synthetic-skin
-    - scent-terminator-base-latex-muscles
-    - scent-terminator-base-hydraulic-fluid
-    - scent-terminator-base-overheated-circuits
-  - notes:
-    - scent-terminator-nature-kevlar-fabric
-    - scent-terminator-nature-cold-steel
-    - scent-terminator-nature-street-dust
-    - scent-terminator-nature-burned-plastic
-    - scent-terminator-nature-burnt-insulation
-  - notes:
-    - scent-terminator-accent-gunpowder
-    - scent-terminator-accent-burnt-flesh
-    - scent-terminator-accent-electric-spark
-    - scent-terminator-accent-diesel-fuel
-    - scent-terminator-accent-spent-shells
-
-- type: personalScentProfile
   id: SunriseVox
   notePools:
   - notes:
