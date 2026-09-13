@@ -38,6 +38,8 @@ public sealed partial class SmellSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private ILocalizationManager _loc = default!;
+    [Dependency] private EntityQuery<SmellComponent> _smellQuery = default!;
+    [Dependency] private EntityQuery<ScentComponent> _scentQuery = default!;
 
 
     public override void Initialize()
@@ -65,7 +67,7 @@ public sealed partial class SmellSystem : EntitySystem
         {
             Text = _loc.GetString("smell-verb"),
             TextStyleClass = "Default",
-            Act = () => TrySmell(user, target)
+            Act = () => TrySmell(user, target.AsNullable())
         });
     }
 
@@ -73,8 +75,11 @@ public sealed partial class SmellSystem : EntitySystem
     /// Entry point: smell capability check and scent description output.
     /// Some failed CanSmell checks show a popup.
     /// </summary>
-    public bool TrySmell(EntityUid user, Entity<ScentComponent> target)
+    public bool TrySmell(Entity<SmellComponent?> user, Entity<ScentComponent?> target)
     {
+        if (!ResolveSmellComponents(ref user, ref target))
+            return false;
+
         if (!CanSmell(user, target, out var reason))
         {
             if (reason != null)
@@ -82,19 +87,28 @@ public sealed partial class SmellSystem : EntitySystem
             return false;
         }
 
-        DoSmell(user, target);
+        DoSmell(user, target!);
         return true;
+    }
+
+    /// <summary>
+    /// Resolves both optional component references at the public boundary and
+    /// fails fast if either component is missing.
+    /// </summary>
+    private bool ResolveSmellComponents(ref Entity<SmellComponent?> user, ref Entity<ScentComponent?> target)
+    {
+        return _smellQuery.Resolve(ref user, false) && _scentQuery.Resolve(ref target, false);
     }
 
     /// <summary>
     /// Smell capability check; returns false and a failure reason.
     /// The reason is null for a silent rejection (no suitable message).
     /// </summary>
-    public bool CanSmell(EntityUid user, Entity<ScentComponent> target, out LocId? reason)
+    public bool CanSmell(Entity<SmellComponent?> user, Entity<ScentComponent?> target, out LocId? reason)
     {
         reason = null;
 
-        if (!HasComp<SmellComponent>(user))
+        if (!ResolveSmellComponents(ref user, ref target))
             return false;
 
         if (IsMaskEquipped(user) || IsHeadSealed(user))
@@ -110,7 +124,7 @@ public sealed partial class SmellSystem : EntitySystem
         }
 
         if (!_actionBlocker.CanInteract(user, target) ||
-            !_interaction.InRangeUnobstructed(user, target.Owner))
+            !_interaction.InRangeUnobstructed(user.Owner, target.Owner))
             return false;
 
         return true;
@@ -428,8 +442,7 @@ public sealed partial class SmellSystem : EntitySystem
     }
 
     /// <summary>
-    /// Returns the temporary scent text. For the arousal scent picks
-    /// the variant depending on the smeller's attraction to the bearer.
+    /// Returns the temporary scent text.
     /// </summary>
     private string GetTemporaryScentText(EntityUid user, Entity<ScentComponent> target, ActiveTemporaryScent entry)
     {

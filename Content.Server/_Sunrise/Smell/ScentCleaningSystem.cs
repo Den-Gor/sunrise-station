@@ -49,7 +49,7 @@ public sealed partial class ScentCleaningSystem : EntitySystem
 
         args.Verbs.Add(new UtilityVerb
         {
-            Act = () => TryCleanScents((cleaner, null), user, (target, null)),
+            Act = () => TryCleanScents(cleaner.AsNullable(), user, (target, null)),
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/bubbles.svg.192dpi.png")),
             Text = _loc.GetString("scent-cleaning-verb-text"),
             Message = _loc.GetString("scent-cleaning-verb-message"),
