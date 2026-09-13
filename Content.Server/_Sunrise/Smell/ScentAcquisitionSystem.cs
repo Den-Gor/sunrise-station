@@ -36,7 +36,7 @@ public sealed partial class ScentAcquisitionSystem : EntitySystem
     /// Marker reagent of tobacco products; its presence in the smoking solution
     /// distinguishes tobacco from other fillings (drugs etc.).
     /// </summary>
-    private static readonly ReagentId NicotineReagent = new("Nicotine", null);
+    private static readonly ReagentId _nicotineReagent = new("Nicotine", null);
 
     public override void Initialize()
     {
@@ -199,7 +199,7 @@ public sealed partial class ScentAcquisitionSystem : EntitySystem
     private bool ContainsNicotine(Entity<ScentEmitterComponent> ent, SmokableComponent smokable)
     {
         return _solution.TryGetSolution(ent.Owner, smokable.Solution, out _, out var solution)
-            && solution.ContainsReagent(NicotineReagent);
+            && solution.ContainsReagent(_nicotineReagent);
     }
 
     /// <summary>
