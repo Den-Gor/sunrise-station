@@ -65,12 +65,10 @@ public sealed partial class HeartbeatSystem
     }
 
     /// <summary>
-    /// Проверяем персонажа действительно ли он должен сейчас быть в крите или нет, возрващает true если не находит компаненты / он в крите, false если он не должен быть в крите по хп.
+    /// Проверяем персонажа действительно ли он должен сейчас быть в крите или нет
+    /// возвращает true если не находит компоненты / он в крите, false если он не должен быть в крите по хп.
     /// </summary>
-    /// <param name="ent"></param>
-    /// <param name="damageable"></param>
-    /// <returns></returns>
-    private bool IsTrueCrit(Entity<CritHeartbeatComponent> ent,DamageableComponent? damageable = null)
+    private bool IsTrueCrit(Entity<CritHeartbeatComponent> ent, DamageableComponent? damageable = null)
     {
         if (!Resolve(ent.Owner, ref damageable))
             return true;
@@ -79,7 +77,5 @@ public sealed partial class HeartbeatSystem
 
         return !_mobThreshold.TryGetThresholdForState(ent.Owner, MobState.Critical, out var critThreshold)
                || totalDamage >= critThreshold;
-
     }
-
 }
